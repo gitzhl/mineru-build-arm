@@ -1,0 +1,15 @@
+# 字体层 - 在真实 ARM64 设备上运行此镜像来添加字体
+# Font layer - Run this image on real ARM64 device to add fonts
+FROM mineru-ascend:base
+
+# Install fonts - ONLY run this on real ARM64 hardware!
+RUN apt-get update && \
+    apt-get install -y \
+        fonts-noto-core \
+        fonts-noto-cjk \
+        fontconfig && \
+    fc-cache -fv && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["/bin/bash", "-c", "export MINERU_MODEL_SOURCE=local && exec \"$@\"", "--"]

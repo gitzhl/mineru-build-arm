@@ -1,0 +1,31 @@
+# 基础镜像配置 vLLM 或 LMDeploy ，请根据实际需要选择其中一个，要求 ARM(AArch64) CPU + Ascend NPU。
+# Base image containing the vLLM inference environment, requiring ARM(AArch64) CPU + Ascend NPU.
+FROM quay.m.daocloud.io/ascend/vllm-ascend:v0.11.0
+
+# 简化版安装：仅安装必要的库，跳过字体以避免 QEMU 模拟问题
+# 在真实 ARM64 设备上运行时，字体可以后续安装或通过卷挂载
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libgl1 \
+        libglib2.0-0 \
+        libsm6 \
+        libxext6 \
+        libxrender-dev \
+        libgomp1 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install mineru latest
+RUN python3 -m pip install -U pip -i https://mirrors.aliyun.com/pypi/simple && \
+    python3 -m pip install 'mineru[core]>=2.6.5' \
+                            numpy==1.26.4 \
+                            opencv-python-headless==4.11.0.86 \
+                            -i https://mirrors.aliyun.com/pypi/simple && \
+    python3 -m pip cache purge
+
+# 注意：模型下载在 QEMU 模拟环境下可能会很慢或失败
+# 建议在真实 ARM64 设备上首次运行时下载模型
+# RUN TORCH_DEVICE_BACKEND_AUTOLOAD=0 /bin/bash -c "mineru-models-download -s modelscope -m all"
+
+# Set the entry point
+ENTRYPOINT ["/bin/bash", "-c", "export MINERU_MODEL_SOURCE=local && exec \"$@\"", "--"]

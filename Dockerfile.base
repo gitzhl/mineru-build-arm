@@ -1,0 +1,24 @@
+# 基础层 - 不包含字体，可在 QEMU 环境构建
+# Base layer without fonts - can be built in QEMU environment
+FROM quay.m.daocloud.io/ascend/vllm-ascend:v0.11.0
+
+# Install basic dependencies only (no fonts)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libgl1 \
+        libglib2.0-0 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install mineru
+RUN python3 -m pip install -U pip -i https://mirrors.aliyun.com/pypi/simple && \
+    python3 -m pip install 'mineru[core]>=2.6.5' \
+                            numpy==1.26.4 \
+                            opencv-python==4.11.0.86 \
+                            -i https://mirrors.aliyun.com/pypi/simple && \
+    python3 -m pip cache purge
+
+# Download models
+RUN TORCH_DEVICE_BACKEND_AUTOLOAD=0 /bin/bash -c "mineru-models-download -s modelscope -m all"
+
+ENTRYPOINT ["/bin/bash", "-c", "export MINERU_MODEL_SOURCE=local && exec \"$@\"", "--"]
