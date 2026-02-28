@@ -27,7 +27,7 @@ env:
   # 阿里云容器镜像服务配置
   REGISTRY: registry.cn-hangzhou.aliyuncs.com
   # 修改为您的阿里云命名空间和仓库名，例如：namespace/mineru-ascend
-  IMAGE_NAME: tujinkai/mineru-ascend
+  IMAGE_NAME: mycangku_tusuklll/mineru-ascend
 
 jobs:
   build:
