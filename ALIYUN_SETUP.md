@@ -4,7 +4,8 @@
 
 - **Registry**: `registry.cn-hangzhou.aliyuncs.com`
 - **Username**: `18970973195`
-- **镜像名称**: `registry.cn-hangzhou.aliyuncs.com/tujinkai/mineru-ascend`
+- **命名空间**: `mycangku_tusuklll`
+- **镜像名称**: `registry.cn-hangzhou.aliyuncs.com/mycangku_tusuklll/mineru-ascend`
 
 ---
 
@@ -64,14 +65,14 @@ Secret 列表中应该显示：
 
 1. 访问 [阿里云容器镜像服务控制台](https://cr.console.aliyun.com/)
 2. 点击左侧 **"命名空间"**
-3. 确认是否存在命名空间：`tujinkai`
+3. 确认是否存在命名空间：`mycangku_tusuklll`
 
 ### 3.2 如果命名空间不存在
 
 创建命名空间：
 1. 点击 **"创建命名空间"**
 2. 填写：
-   - **命名空间名称**: `tujinkai`
+   - **命名空间名称**: `mycangku_tusuklll`
    - **是否自动创建仓库**: 选择是
 3. 点击 **"确定"**
 
@@ -114,7 +115,7 @@ https://github.com/TuJinkai/mineru-build-arm/actions
 构建成功后：
 1. 访问 [阿里云容器镜像服务控制台](https://cr.console.aliyun.com/)
 2. 点击 **"镜像仓库"**
-3. 找到命名空间 `tujinkai`
+3. 找到命名空间 `mycangku_tusuklll`
 4. 查看镜像 `mineru-ascend`
 
 ---
@@ -132,10 +133,10 @@ docker login --username=18970973195 registry.cn-hangzhou.aliyuncs.com
 
 ```bash
 # 拉取最新版本
-docker pull registry.cn-hangzhou.aliyuncs.com/tujinkai/mineru-ascend:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/mycangku_tusuklll/mineru-ascend:latest
 
 # 拉取特定版本
-docker pull registry.cn-hangzhou.aliyuncs.com/tujinkai/mineru-ascend:v1.0.0
+docker pull registry.cn-hangzhou.aliyuncs.com/mycangku_tusuklll/mineru-ascend:v1.0.0
 ```
 
 ### 6.3 运行容器
@@ -147,7 +148,7 @@ docker run --rm -it \
   --device=/dev/devmm_svm \
   --device=/dev/hisi_hdc \
   -v /data:/data \
-  registry.cn-hangzhou.aliyuncs.com/tujinkai/mineru-ascend:latest \
+  registry.cn-hangzhou.aliyuncs.com/mycangku_tusuklll/mineru-ascend:latest \
   mineru-cli-pdf -p /data/input.pdf -o /data/output
 ```
 
@@ -241,5 +242,5 @@ IMAGE_NAME: your-namespace/your-image-name
 
 **配置完成后，您的镜像地址将是**：
 ```
-registry.cn-hangzhou.aliyuncs.com/tujinkai/mineru-ascend:latest
+registry.cn-hangzhou.aliyuncs.com/mycangku_tusuklll/mineru-ascend:latest
 ```
