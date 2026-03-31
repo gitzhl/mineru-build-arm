@@ -25,9 +25,9 @@ on:
 
 env:
   # 阿里云容器镜像服务配置
-  REGISTRY: registry.cn-hangzhou.aliyuncs.com
+  REGISTRY: crpi-40e6fif9mll24a7u.cn-shenzhen.personal.cr.aliyuncs.com
   # 修改为您的阿里云命名空间和仓库名，例如：namespace/mineru-ascend
-  IMAGE_NAME: mycangku_tusuklll/mineru-ascend
+  IMAGE_NAME: zhl_siyoucangku/mineru-ascend
 
 jobs:
   build:
@@ -51,7 +51,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: 18970973195
+          username: 15217928160
           password: ${{ secrets.ALIYUN_REGISTRY_PASSWORD }}
 
       - name: Extract metadata
